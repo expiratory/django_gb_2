@@ -27,6 +27,9 @@ class Client(models.Model):
         self.address = address
         self.save()
 
+    def get_all_client_orders(self):
+        return Order.objects.filter(client=self.id)
+
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
