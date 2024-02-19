@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Orders</title>
+</head>
+<body>
+    <h1>Список заказанных товаров клиента {{ client.name }}</h1>
+    {% for days, range in time_range %}
+      <h2>Товары за последние {{ days }} дней:</h2>
+      <ul>
+        {% for order in client.get_all_client_orders %}
+          {% if order.order_date >= range %}
+            {% for product in order.get_products %}
+              <li>{{ product.name }}</li>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endfor %}
+</body>
+</html>
