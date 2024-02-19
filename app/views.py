@@ -15,9 +15,11 @@ def client_orders(request, client_id):
 
     context = {
         'client': client,
-        'last_week': last_week.date(),
-        'last_month': last_month.date(),
-        'last_year': last_year.date(),
+        'time_range': [
+            [7, last_week.date()],
+            [30, last_month.date()],
+            [365, last_year.date()],
+        ],
     }
 
     return render(request, 'client_orders.html', context)

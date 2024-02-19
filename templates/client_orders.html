@@ -7,38 +7,17 @@
 </head>
 <body>
     <h1>Список заказанных товаров клиента {{ client.name }}</h1>
-
-    <h2>Товары за последние 7 дней:</h2>
-    <ul>
+    {% for days, range in time_range %}
+      <h2>Товары за последние {{ days }} дней:</h2>
+      <ul>
         {% for order in client.get_all_client_orders %}
-            {% if order.order_date >= last_week %}
-                {% for product in order.get_products %}
-                    <li>{{ product.name }}</li>
-                {% endfor %}
-            {% endif %}
+          {% if order.order_date >= range %}
+            {% for product in order.get_products %}
+              <li>{{ product.name }}</li>
+            {% endfor %}
+          {% endif %}
         {% endfor %}
-    </ul>
-
-    <h2>Товары за последние 30 дней:</h2>
-    <ul>
-        {% for order in client.get_all_client_orders %}
-            {% if order.order_date >= last_month %}
-                {% for product in order.get_products %}
-                    <li>{{ product.name }}</li>
-                {% endfor %}
-            {% endif %}
-        {% endfor %}
-    </ul>
-
-    <h2>Товары за последние 365 дней:</h2>
-    <ul>
-        {% for order in client.get_all_client_orders %}
-            {% if order.order_date >= last_year %}
-                {% for product in order.get_products %}
-                    <li>{{ product.name }}</li>
-                {% endfor %}
-            {% endif %}
-        {% endfor %}
-    </ul>
+      </ul>
+    {% endfor %}
 </body>
 </html>
